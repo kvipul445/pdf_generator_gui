@@ -1,9 +1,9 @@
 import pytest
 
-def selected_files(name):
-    name = 'file'
+@pytest.mark.parametrize('name','file')
+def test_selected_files(name):
     return name
 
-a = selected_files('file')
+a = test_selected_files('file')
 
 assert a == 'file'
