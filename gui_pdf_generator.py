@@ -1,7 +1,17 @@
 import tkinter as tk
-import functions.open_file_function as fun
+from tkinter import filedialog
 
 root = tk.Tk()
+
+def file_chooser(event):
+    global files_open
+    files_open = filedialog.askopenfilenames()
+    print(files_open)
+    selected_files()
+
+def selected_files():
+    print(files_open)
+    return files_open
 
 root.title('PDF Generator using Python3')
 main_frame= tk.Frame(root)
@@ -10,7 +20,7 @@ main_label = tk.Label(main_frame, text='PDF File Generator')
 main_label.grid()
 
 choose_file_button = tk.Button(main_frame, text='Choose File')
-choose_file_button.bind('<Button-1>',fun.open_file.open_file_dialog)
+choose_file_button.bind('<Button-1>',file_chooser)
 choose_file_button.grid()
 
 bottom_frame = tk.Frame(root)
