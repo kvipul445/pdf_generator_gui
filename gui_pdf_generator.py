@@ -33,6 +33,7 @@ def pdf_generator(dir_open,files_open,pdf_name):
     successful_label.grid()
         
 root.title('PDF Generator using Python3')
+root.geometry('500x400')
 main_frame= tk.Frame(root)
 main_frame.grid()
 main_label = tk.Label(main_frame, text='PDF File Generator')
@@ -49,8 +50,8 @@ choose_dir_button.grid()
 bottom_frame = tk.Frame(root)
 bottom_frame.grid()
 next_button = tk.Button(bottom_frame,text='Next')
-next_button.grid(sticky=tk.E)
+next_button.grid()
 
 quit_button = tk.Button(bottom_frame, text='Quit', command=main_frame.quit)
-quit_button.grid(sticky=tk.S)
+quit_button.grid()
 root.mainloop()
