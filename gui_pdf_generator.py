@@ -28,7 +28,7 @@ def file_chooser(event):
     global files_open
     files_open = filedialog.askopenfilenames()
     selected_files(files_open)
-    #show_images()
+    show_images()
 
 def directory_chooser(event):
     global dir_open
