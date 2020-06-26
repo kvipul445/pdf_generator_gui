@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 import tkinter as tk
 from tkinter import filedialog
+from PIL import ImageTk,Image
 from functions.pdf_generator import pdf_process
 
 root = tk.Tk()
@@ -11,15 +12,23 @@ def selected_files(name):
 
 def name_of_pdf():
     global pdf_name
-    name_frame = tk.Frame(root)
-    name_frame.grid()
-    pdf_name = tk.Entry(name_frame)
-    pdf_name.grid(columnspan=2)
+    pdf_file_label = tk.Label(main_frame,text='Enter the file name')
+    pdf_file_label.grid(row=4,column=0)
+
+    pdf_name = tk.Entry(main_frame)
+    pdf_name.grid(row=4,column=1,columnspan=2, sticky="ew")
+
+def show_images():
+    for file_path in files_open:
+        image_file = ImageTk.PhotoImage(Image.open(file_path))
+        image_label = tk.Label(main_frame,image=image_file)
+        image_label.grid()
 
 def file_chooser(event):
     global files_open
     files_open = filedialog.askopenfilenames()
     selected_files(files_open)
+    #show_images()
 
 def directory_chooser(event):
     global dir_open
@@ -36,6 +45,7 @@ def pdf_generate(event):
         
 root.title('PDF Generator using Python3')
 root.geometry('500x400')
+root.resizable(width=True, height=True)
 
 main_frame= tk.Frame(root)
 main_frame.grid()
@@ -45,11 +55,11 @@ main_label.grid()
 
 choose_file_button = tk.Button(main_frame, text='Choose File')
 choose_file_button.bind('<Button-1>',file_chooser)
-choose_file_button.grid()
+choose_file_button.grid(row=2,column=0)
 
 choose_dir_button = tk.Button(main_frame, text='Choose Directory to save PDF')
 choose_dir_button.bind('<Button-1>',directory_chooser)
-choose_dir_button.grid()
+choose_dir_button.grid(row=2,column=2)
 
 bottom_frame = tk.Frame(root)
 bottom_frame.grid()
