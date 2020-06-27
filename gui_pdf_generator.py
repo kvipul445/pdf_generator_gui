@@ -20,8 +20,9 @@ def name_of_pdf():
 
 def show_images():
     for file_path in files_open:
-        image_file = ImageTk.PhotoImage(Image.open(file_path))
+        image_file = ImageTk.PhotoImage(Image.open(file_path).resize((100,100)))
         image_label = tk.Label(main_frame,image=image_file)
+        image_label.image = image_file
         image_label.grid()
 
 def file_chooser(event):
