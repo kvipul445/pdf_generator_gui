@@ -23,7 +23,7 @@ def show_images():
         image_file = ImageTk.PhotoImage(Image.open(file_path).resize((100,100)))
         image_label = tk.Label(main_frame,image=image_file)
         image_label.image = image_file
-        image_label.grid()
+        image_label.grid(row=4,column=files_open.index(file_path))
 
 def file_chooser(event):
     global files_open
@@ -39,7 +39,6 @@ def directory_chooser(event):
 
 def pdf_generate(event):
     pdf_class = pdf_process()
-    print(pdf_name.get())
     pdf_class.selected_directory(dir_open,pdf_name.get(),files_open)
     successful_label = tk.Label(bottom_frame,text='Successfully Generated')
     successful_label.grid()
@@ -48,11 +47,14 @@ root.title('PDF Generator using Python3')
 root.geometry('500x400')
 root.resizable(width=True, height=True)
 
-main_frame= tk.Frame(root)
-main_frame.grid()
+top_frame= tk.Frame(root)
+top_frame.grid()
 
-main_label = tk.Label(main_frame, text='PDF File Generator')
-main_label.grid()
+main_label = tk.Label(top_frame, text='PDF File Generator')
+main_label.grid(pady=10)
+
+main_frame= tk.Frame(root)
+main_frame.grid(pady=5)
 
 choose_file_button = tk.Button(main_frame, text='Choose File')
 choose_file_button.bind('<Button-1>',file_chooser)
@@ -63,13 +65,13 @@ choose_dir_button.bind('<Button-1>',directory_chooser)
 choose_dir_button.grid(row=2,column=2)
 
 bottom_frame = tk.Frame(root)
-bottom_frame.grid()
+bottom_frame.grid(pady=5)
 
 next_button = tk.Button(bottom_frame,text='Next')
 next_button.bind('<Button-1>',pdf_generate)
-next_button.grid()
+next_button.grid(row=0,column=0)
 
 quit_button = tk.Button(bottom_frame, text='Quit', command=main_frame.quit)
-quit_button.grid()
+quit_button.grid(row=0,column=1)
 
 root.mainloop()
