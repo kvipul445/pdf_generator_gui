@@ -18,6 +18,9 @@ def name_of_pdf():
     pdf_name = tk.Entry(main_frame)
     pdf_name.grid(row=4,column=1,columnspan=2, sticky="ew")
 
+    pdf_label = tk.Label(main_frame,text=".pdf")
+    pdf_label.grid(row=4,column=3)
+
 def show_images():
     for file_path in files_open:
         image_file = ImageTk.PhotoImage(Image.open(file_path).resize((100,100)))
