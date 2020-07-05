@@ -67,7 +67,7 @@ main_frame.grid(pady=5)
 
 choose_file_button = tk.Button(main_frame, text='Choose File')
 choose_file_button.bind('<Button-1>',file_chooser)
-choose_file_button.grid()
+choose_file_button.grid(pady=10)
 
 choose_dir_button = tk.Button(main_frame, text='Choose Directory to save PDF')
 choose_dir_button.bind('<Button-1>',directory_chooser)
