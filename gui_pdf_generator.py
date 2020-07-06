@@ -12,7 +12,7 @@ def selected_files(name):
 
 def name_of_pdf():
     global pdf_name
-    pdf_file_label = tk.Label(main_frame,text='Enter the file name')
+    pdf_file_label = tk.Label(main_frame,text='Enter the file name :')
     pdf_file_label.grid(row=4,column=0)
 
     pdf_name = tk.Entry(main_frame)
@@ -22,6 +22,10 @@ def name_of_pdf():
     pdf_label.grid(row=4,column=3)
 
 def show_images():
+    for child in main_frame.winfo_children():
+        if str(type(child)) == "<class 'tkinter.Label'>":
+            child.destroy()
+
     for file_path in files_open:
         image_file = ImageTk.PhotoImage(Image.open(file_path).resize((100,100)))
         image_label = tk.Label(main_frame,image=image_file)
@@ -35,10 +39,15 @@ def file_chooser(event):
     show_images()
 
 def directory_chooser(event):
+    entry_label_present = False
     global dir_open
     dir_open = filedialog.askdirectory()
     selected_files(dir_open)
-    name_of_pdf()
+    for child in main_frame.winfo_children():
+        if str(type(child)) == "<class 'tkinter.Entry'>":
+            entry_label_present = True
+    if not entry_label_present:
+        name_of_pdf()
     create_pdf_button()
 
 def pdf_generate(event):
