@@ -34,7 +34,7 @@ def show_images():
 
 def file_chooser(event):
     global files_open
-    files_open = filedialog.askopenfilenames()
+    files_open = filedialog.askopenfilenames(multiple=True)
     selected_files(files_open)
     show_images()
 
