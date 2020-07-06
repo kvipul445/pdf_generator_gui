@@ -12,13 +12,20 @@ def selected_files(name):
 
 def name_of_pdf():
     global pdf_name
-    pdf_file_label = tk.Label(main_frame,text='Enter the file name')
+    pdf_file_label = tk.Label(main_frame,text='Enter the file name :')
     pdf_file_label.grid(row=4,column=0)
 
     pdf_name = tk.Entry(main_frame)
     pdf_name.grid(row=4,column=1,columnspan=2, sticky="ew")
 
+    pdf_label = tk.Label(main_frame,text=".pdf")
+    pdf_label.grid(row=4,column=3)
+
 def show_images():
+    for child in main_frame.winfo_children():
+        if str(type(child)) == "<class 'tkinter.Label'>":
+            child.destroy()
+
     for file_path in files_open:
         image_file = ImageTk.PhotoImage(Image.open(file_path).resize((100,100)))
         image_label = tk.Label(main_frame,image=image_file)
@@ -27,21 +34,27 @@ def show_images():
 
 def file_chooser(event):
     global files_open
-    files_open = filedialog.askopenfilenames()
+    files_open = filedialog.askopenfilenames(multiple=True)
     selected_files(files_open)
     show_images()
 
 def directory_chooser(event):
+    entry_label_present = False
     global dir_open
     dir_open = filedialog.askdirectory()
     selected_files(dir_open)
-    name_of_pdf()
+    for child in main_frame.winfo_children():
+        if str(type(child)) == "<class 'tkinter.Entry'>":
+            entry_label_present = True
+    if not entry_label_present:
+        name_of_pdf()
     create_pdf_button()
 
 def pdf_generate(event):
     pdf_class = pdf_process()
-    pdf_class.selected_directory(dir_open,pdf_name.get(),files_open)
-    successful_label = tk.Label(bottom_frame,text='Successfully Generated')
+    path = str(dir_open)+'/'+str(pdf_name.get())+'.pdf'
+    pdf_class.selected_directory(path,files_open)
+    successful_label = tk.Label(bottom_frame,text='Successfully Generated ' + str(pdf_name.get())+'.pdf')
     successful_label.grid()
 
 def create_pdf_button():
@@ -64,7 +77,7 @@ main_frame.grid(pady=5)
 
 choose_file_button = tk.Button(main_frame, text='Choose File')
 choose_file_button.bind('<Button-1>',file_chooser)
-choose_file_button.grid()
+choose_file_button.grid(pady=10)
 
 choose_dir_button = tk.Button(main_frame, text='Choose Directory to save PDF')
 choose_dir_button.bind('<Button-1>',directory_chooser)

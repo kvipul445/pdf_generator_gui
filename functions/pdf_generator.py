@@ -13,8 +13,7 @@ class pdf_process:
         a.get_xaxis().set_visible(False) # We don't need axis ticks
         a.get_yaxis().set_visible(False)
 
-    def selected_directory(self,select_dir,name_of_pdf_file,selected_files):
-        path = str(select_dir)+'/'+str(name_of_pdf_file)+'.pdf'
+    def selected_directory(self,path,selected_files):
         open(path,"w+")
         pp = PdfPages(path)
 
