@@ -52,8 +52,9 @@ def directory_chooser(event):
 
 def pdf_generate(event):
     pdf_class = pdf_process()
-    pdf_class.selected_directory(dir_open,pdf_name.get(),files_open)
-    successful_label = tk.Label(bottom_frame,text='Successfully Generated')
+    path = str(dir_open)+'/'+str(pdf_name.get())+'.pdf'
+    pdf_class.selected_directory(path,files_open)
+    successful_label = tk.Label(bottom_frame,text='Successfully Generated ' + str(pdf_name.get())+'.pdf')
     successful_label.grid()
 
 def create_pdf_button():
